@@ -11,6 +11,7 @@ public class ServerListener extends Thread {
             serverSocket = new ServerSocket(12345);
             while(true) {
                 Socket socket = serverSocket.accept();
+                System.out.println("A connection has been established.");
                 ChatSocket cs = new ChatSocket(socket);
                 cs.start();
                 ChatManager.getChatManager().add(cs);
