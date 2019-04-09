@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ChatSocket extends Thread {
@@ -21,6 +18,15 @@ public class ChatSocket extends Thread {
 
     @Override
     public void run(){
-        out("123");
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
+            String line = null;
+            while((line = br.readLine()) != null){
+                ChatManager.getChatManager().publish(this,line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

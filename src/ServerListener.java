@@ -11,7 +11,9 @@ public class ServerListener extends Thread {
             serverSocket = new ServerSocket(12345);
             while(true) {
                 Socket socket = serverSocket.accept();
-                new ChatSocket(socket).start();
+                ChatSocket cs = new ChatSocket(socket);
+                cs.start();
+                ChatManager.getChatManager().add(cs);
             }
         } catch (IOException e) {
             e.printStackTrace();
